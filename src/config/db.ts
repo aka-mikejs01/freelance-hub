@@ -8,8 +8,10 @@ const connectDB = async () => {
   } catch (err) {
     if (err instanceof Error) {
       logger.error(`DB died. Error: ${err.stack || err.message}`);
+      process.exit(1);
     } else {
       logger.error("Unknown error occured");
+      process.exit(1);
     }
   }
 };

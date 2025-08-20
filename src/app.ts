@@ -5,8 +5,10 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import cors from "cors";
-import connectDB from "./config/db";
+import path from "path";
 import limit from "./middleware/rateLimit";
+import authRoutes from "./routes/authRoutes";
+import uploadRoutes from "./routes/uploadRoutes";
 
 dotenv.config();
 
@@ -22,16 +24,9 @@ app.use(
 );
 app.use(limit);
 
-const PORT = process.env.PORT || 8000;
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-const startServer = async () => {
-  try {
-    await connectDB();
-    app.listen(PORT, () => logger.info(`Server running on port: ${PORT}`));
-  } catch (err) {
-    const error = err as Error;
-    logger.error(error.message);
-  }
-};
+app.use("/api/auth", authRoutes);
+app.use("/api", uploadRoutes);
 
-startServer();
+export default app;
