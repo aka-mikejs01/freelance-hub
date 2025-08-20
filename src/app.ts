@@ -9,6 +9,7 @@ import path from "path";
 import limit from "./middleware/rateLimit";
 import authRoutes from "./routes/authRoutes";
 import uploadRoutes from "./routes/uploadRoutes";
+import resetPasswordRoutes from "./routes/resetPasswordRoutes";
 
 dotenv.config();
 
@@ -28,5 +29,6 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api", uploadRoutes);
+app.use("/api", resetPasswordRoutes);
 
 export default app;

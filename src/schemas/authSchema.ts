@@ -19,6 +19,11 @@ export const forgotPasswordSchema = z.object({
   email: z.email("Email must be valid"),
 });
 
+export const resetPasswordSchema = z.object({
+  newPassword: z.string().min(6, "New Password is required"),
+});
+
 export type SignupInput = z.infer<typeof signupSchema>;
 export type SigninInput = z.infer<typeof signinSchema>;
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
