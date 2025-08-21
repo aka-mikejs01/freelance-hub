@@ -7,7 +7,7 @@ const router = Router();
 
 router.post(
   "/reset-password/:token",
-  validate(resetPasswordSchema),
+  validate({ body: resetPasswordSchema }),
   resetPassword
 );
 

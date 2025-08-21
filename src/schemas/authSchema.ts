@@ -7,7 +7,9 @@ export const signupSchema = z.object({
     .max(10, "Name must not exceed 10 characters"),
   email: z.email("Email must be valid"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  role: z.string().min(1, "Please enter your role"),
+  role: z.enum(["client", "freelancer"], {
+    message: "Role must be either client or freelancer",
+  }),
 });
 
 export const signinSchema = z.object({

@@ -6,9 +6,9 @@
 
     /* Language and Module Settings */
     "target": "esnext",
-    "module": "commonjs",
+    "module": "node16",
     "lib": ["esnext"],
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,

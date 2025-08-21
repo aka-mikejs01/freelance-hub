@@ -1,13 +1,39 @@
 import { Request, Response, NextFunction } from "express";
-import { ZodType } from "zod";
+import { ZodType, ZodError } from "zod";
+
+interface ValidateSchemas {
+  body?: ZodType;
+  query?: ZodType;
+  params?: ZodType;
+}
 
 export const validate =
-  <T extends ZodType>(schema: T) =>
+  (schema: ValidateSchemas) =>
   (req: Request, res: Response, next: NextFunction): Response | void => {
-    const result = schema.safeParse(req.body);
-    if (!result.success)
-      return res.status(400).json({ errors: result.error.format() });
+    try {
+      if (schema.body) {
+        req.body = schema.body.parse(req.body);
+      }
 
-    req.body = result.data;
-    next();
+      if (schema.query) {
+        req.query = schema.query.parse(req.query) as any;
+      }
+
+      if (schema.params) {
+        req.params = schema.params.parse(req.params) as any;
+      }
+
+      next();
+    } catch (err) {
+      if (err instanceof ZodError) {
+        res.status(400).json({
+          errors: err.issues.map((issue) => ({
+            path: issue.path.join("."),
+            message: issue.message,
+          })),
+        });
+      }
+
+      next(err);
+    }
   };

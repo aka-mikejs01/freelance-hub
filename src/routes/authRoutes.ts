@@ -15,10 +15,14 @@ import { validate } from "../middleware/validate";
 
 const router = Router();
 
-router.post("/signup", validate(signupSchema), signup);
-router.post("/signin", validate(signinSchema), signin);
+router.post("/signup", validate({ body: signupSchema }), signup);
+router.post("/signin", validate({ body: signinSchema }), signin);
 router.post("/signout", signout);
 router.post("/refresh", refresh);
-router.post("/forgot-password", validate(forgotPasswordSchema), forgotPassword);
+router.post(
+  "/forgot-password",
+  validate({ body: forgotPasswordSchema }),
+  forgotPassword
+);
 
 export default router;

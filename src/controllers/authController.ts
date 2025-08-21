@@ -13,8 +13,6 @@ import {
 } from "../utils/generateToken";
 import logger from "../middleware/logger";
 
-type Roles = [string, string];
-
 export const signup = async (
   req: AuthRequest,
   res: Response
@@ -27,10 +25,6 @@ export const signup = async (
       logger.warn("Someone tried to register with an existing email");
       return res.status(401).json({ message: "Email already in use" });
     }
-
-    const validRoles: Roles = ["client", "freelancer"];
-    if (!validRoles.includes(role))
-      return res.status(400).json({ message: "Invalid Role" });
 
     const user = new User({ name, email, password, role });
     await user.save();
