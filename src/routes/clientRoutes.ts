@@ -15,7 +15,7 @@ import { updateBodySchema } from "../schemas/paramsSchema";
 const router = Router();
 
 router.post(
-  "/jobs",
+  "/",
   isAuth,
   requireRole("client"),
   validate({ body: jobSchema }),
@@ -23,7 +23,7 @@ router.post(
 );
 
 router.patch(
-  "/jobs/:id",
+  "/:id",
   isAuth,
   requireRole("client"),
   validate({ params: jobParamsSchema, body: updateBodySchema }),
@@ -31,13 +31,13 @@ router.patch(
 );
 
 router.delete(
-  "/jobs/:id",
+  "/:id",
   isAuth,
   requireRole("client"),
   validate({ params: jobParamsSchema }),
   deleteJobPost
 );
 
-router.get("/jobs", isAuth, requireRole("client"), getMyJobPosts);
+router.get("/my-posts", isAuth, requireRole("client"), getMyJobPosts);
 
 export default router;

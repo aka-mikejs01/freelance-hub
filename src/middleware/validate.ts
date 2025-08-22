@@ -16,17 +16,19 @@ export const validate =
       }
 
       if (schema.query) {
-        req.query = schema.query.parse(req.query) as any;
+        const parsed = schema.query.parse(req.query) as any;
+        Object.assign(req.query, parsed);
       }
 
       if (schema.params) {
-        req.params = schema.params.parse(req.params) as any;
+        const parsed = schema.params.parse(req.params) as any;
+        Object.assign(req.params, parsed);
       }
 
       next();
     } catch (err) {
       if (err instanceof ZodError) {
-        res.status(400).json({
+        return res.status(400).json({
           errors: err.issues.map((issue) => ({
             path: issue.path.join("."),
             message: issue.message,

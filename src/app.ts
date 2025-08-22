@@ -11,6 +11,7 @@ import authRoutes from "./routes/authRoutes";
 import uploadRoutes from "./routes/uploadRoutes";
 import resetPasswordRoutes from "./routes/resetPasswordRoutes";
 import clientRoutes from "./routes/clientRoutes";
+import jobRoutes from "./routes/jobRoutes";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/auth", authRoutes);
 app.use("/api", uploadRoutes);
 app.use("/api", resetPasswordRoutes);
-app.use("/api", clientRoutes);
+app.use("/api/jobs", clientRoutes);
+app.use("/api/jobs", jobRoutes);
 
 export default app;
