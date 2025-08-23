@@ -7,11 +7,12 @@ import helmet from "helmet";
 import cors from "cors";
 import path from "path";
 import limit from "./middleware/rateLimit";
-import authRoutes from "./routes/authRoutes";
-import uploadRoutes from "./routes/uploadRoutes";
-import resetPasswordRoutes from "./routes/resetPasswordRoutes";
-import clientRoutes from "./routes/clientRoutes";
-import jobRoutes from "./routes/jobRoutes";
+import authRouter from "./routes/authRoutes";
+import uploadRouter from "./routes/uploadRoutes";
+import resetPasswordRouter from "./routes/resetPasswordRoutes";
+import clientRouter from "./routes/clientRoutes";
+import jobRouter from "./routes/jobRoutes";
+import freelancerRouter from "./routes/freelancerRoutes";
 
 dotenv.config();
 
@@ -29,10 +30,11 @@ app.use(limit);
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-app.use("/api/auth", authRoutes);
-app.use("/api", uploadRoutes);
-app.use("/api", resetPasswordRoutes);
-app.use("/api/jobs", clientRoutes);
-app.use("/api/jobs", jobRoutes);
+app.use("/api/auth", authRouter);
+app.use("/api", uploadRouter);
+app.use("/api", resetPasswordRouter);
+app.use("/api/jobs", clientRouter);
+app.use("/api/jobs", jobRouter);
+app.use("/api/application", freelancerRouter);
 
 export default app;
