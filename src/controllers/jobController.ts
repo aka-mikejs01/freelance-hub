@@ -46,3 +46,19 @@ export const getJobs = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: "Error Occured", error: error.message });
   }
 };
+
+export const getJobById = async (
+  req: Request,
+  res: Response
+): Promise<Response | void> => {
+  try {
+    const job = await Job.findById(req.params.id);
+    if (!job) return res.status(404).json({ message: "Job not found" });
+
+    res.json(job);
+  } catch (err) {
+    const error = err as Error;
+    logger.error(error.message);
+    res.status(500).json({ message: "Error Occured", error: error.message });
+  }
+};
