@@ -13,6 +13,7 @@ import resetPasswordRouter from "./routes/resetPasswordRoutes";
 import clientRouter from "./routes/clientRoutes";
 import jobRouter from "./routes/jobRoutes";
 import freelancerRouter from "./routes/freelancerRoutes";
+import applicationRouter from "./routes/applicationRoutes";
 
 dotenv.config();
 
@@ -36,5 +37,6 @@ app.use("/api", resetPasswordRouter);
 app.use("/api/jobs", clientRouter);
 app.use("/api/jobs", jobRouter);
 app.use("/api/application", freelancerRouter);
+app.use("/api/application", applicationRouter);
 
 export default app;
