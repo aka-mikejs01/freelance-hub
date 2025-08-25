@@ -14,6 +14,7 @@ import clientRouter from "./routes/clientRoutes";
 import jobRouter from "./routes/jobRoutes";
 import freelancerRouter from "./routes/freelancerRoutes";
 import applicationRouter from "./routes/applicationRoutes";
+import userRouter from "./routes/userRoutes";
 
 dotenv.config();
 
@@ -38,5 +39,6 @@ app.use("/api/jobs", clientRouter);
 app.use("/api/jobs", jobRouter);
 app.use("/api/application", freelancerRouter);
 app.use("/api/application", applicationRouter);
+app.use("/api/user", userRouter);
 
 export default app;
