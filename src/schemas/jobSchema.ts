@@ -21,6 +21,12 @@ export const jobSchema = z.object({
   skills: z
     .array(z.string().min(1, { message: "Skill must not be empty" }))
     .min(1, { message: "At least one skill is required" }),
+  maxFreelancers: z
+    .number()
+    .refine((val) => typeof val === "number" && !isNaN(val), {
+      message: "Max freelancers required must be a number",
+    })
+    .positive({ message: "Max freelancers required must be greater than 0" }),
 });
 
 export type JobInput = z.infer<typeof jobSchema>;

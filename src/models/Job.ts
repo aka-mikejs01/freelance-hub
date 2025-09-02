@@ -13,6 +13,8 @@ const jobSchema = new Schema<IJob>(
       required: true,
       index: true,
     },
+    acceptedFreelancers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    maxFreelancers: { type: Number, default: 1 },
     status: {
       type: String,
       enum: ["open", "closed"],

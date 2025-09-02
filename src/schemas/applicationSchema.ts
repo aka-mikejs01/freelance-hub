@@ -11,4 +11,9 @@ export const appSchema = z.object({
     .max(1000, "Cover letter should not exceed 1000 characters"),
 });
 
+export const updateStatusSchema = z.object({
+  status: z.enum(["accepted", "rejected"]),
+});
+
 export type AppInput = z.infer<typeof appSchema>;
+export type UpdateStatusInput = z.infer<typeof updateStatusSchema>;

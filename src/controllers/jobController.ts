@@ -18,7 +18,8 @@ export const searchJob = async (req: Request, res: Response): Promise<void> => {
       Job.find(filter)
         .sort({ createdAt: -1 })
         .skip((page - 1) * limit)
-        .limit(limit),
+        .limit(limit)
+        .select("-acceptedFreelancers"),
       Job.countDocuments(filter),
     ]);
 
@@ -37,7 +38,8 @@ export const getJobs = async (req: Request, res: Response): Promise<void> => {
     const jobs = await Job.find()
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
-      .limit(limit);
+      .limit(limit)
+      .select("-acceptedFreelancers");
 
     res.json(jobs);
   } catch (err) {
@@ -52,7 +54,9 @@ export const getJobById = async (
   res: Response
 ): Promise<Response | void> => {
   try {
-    const job = await Job.findById(req.params.id);
+    const job = await Job.findById(req.params.id).select(
+      "-acceptedFreelancers"
+    );
     if (!job) return res.status(404).json({ message: "Job not found" });
 
     res.json(job);

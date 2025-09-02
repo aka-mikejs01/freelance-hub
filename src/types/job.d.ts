@@ -6,5 +6,7 @@ export interface IJob extends Document {
   budget: number;
   skills: string[];
   client: Types.ObjectId;
+  acceptedFreelancers: [Types.ObjectId];
+  maxFreelancers: number;
   status: "open" | "closed";
 }
